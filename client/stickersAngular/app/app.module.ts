@@ -2,7 +2,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent }  from './app.component';
-import { TitreComponent }  from './titre.component';
+import { CarteComponent }  from './carte.component';
 
 //
 // le decorateur NgModule nous permet de déclarer un module angular2
@@ -12,7 +12,7 @@ import { TitreComponent }  from './titre.component';
 // -> bootstrap, le composant de démarrage (uniquement sur un module racine)
 @NgModule({
   imports:      [ BrowserModule ],
-  declarations: [ AppComponent, TitreComponent],
+  declarations: [ AppComponent, CarteComponent],
   bootstrap:    [ AppComponent ]  
 })
 export class AppModule { }

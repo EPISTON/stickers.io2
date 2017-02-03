@@ -16,14 +16,8 @@ class Todo {
 
 @Component({
   selector: 'my-app',
-  template: `<my-titre></my-titre>
-            <p>
-              {{message}}
-            </p>
-            <h2>{{tache.titre}} - {{tache.priorite}}</h2>
+  template: `<my-carte></my-carte>
             `,
 })
 export class AppComponent  {
-   message : string = 'bienvenue sur todoApp';
-   tache: Todo = new Todo(1, "apprendre angular2", "formation", 4); 
 }
