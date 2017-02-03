@@ -12,7 +12,12 @@ import { HomeComponent } from './components/home/home.component';
   					BrowserModule,
   					RouterModule.forRoot([
   						{ path: 'home', component: HomeComponent},
-  						//{ path: 'cartes', component: ListeCarteComponent}
+  						//{ path: 'cartes', component: ListeCarteComponent},
+						{
+							path: '',
+							redirectTo: '/home',
+							pathMatch: 'full'
+						}
 						])
   				],
   declarations: [ 
