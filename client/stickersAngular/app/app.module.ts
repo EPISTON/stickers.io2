@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
+import { CarteComponent }  from './carte.component';
 // import { ListeCarteComponent } from './components/liste-carte.component';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { HomeComponent } from './components/home/home.component';
   declarations: [ 
   					AppComponent, 
   					NavbarComponent,
+						CarteComponent,
 					HomeComponent
 				],
   bootstrap:    [ AppComponent ]  
