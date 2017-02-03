@@ -1,8 +1,6 @@
 package io.stickers.backend.repositories;
 
-import java.util.List;
-
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import io.stickers.backend.metier.Image;
 
@@ -11,7 +9,7 @@ import io.stickers.backend.metier.Image;
  * @author Bertrand COTE
  *
  */
-public interface ImageRepository extends CrudRepository<Image, Integer>, 
+public interface ImageRepository extends PagingAndSortingRepository<Image, Integer>, 
 										 ImageRepositoryCustom {
 	
 }
