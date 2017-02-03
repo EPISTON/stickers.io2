@@ -28,6 +28,12 @@
 
 <context:property-placeholder location="classpath*:database.properties"/>
 
+	<!-- ********** Stockage de fichier en local ********** (Bertrand COTE) -->
+	<bean id="fileStorageManager"
+		  class="io.stickers.backend.utils.FileStorageManager">
+		<property name="storageRoot"  value="C:\stockageStickers"/>
+  	</bean>
+
 <bean id="dataSource" 
 	  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	  <property name="driverClassName" value="${database.driverName}"/>
