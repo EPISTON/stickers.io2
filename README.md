@@ -1,0 +1,2 @@
+# stickers.io
+scrum
