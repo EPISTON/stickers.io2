@@ -18,7 +18,7 @@ public class Carte {
 
 	@JsonView( { CarteOnly.class } )
 	private int id;
-	@JsonView( { ImageOnly.class } )
+	@JsonView( { CarteOnly.class } )
 	private String nom;
 	@JsonView( { CarteOnly.class } )
 	private String prenom;

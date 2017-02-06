@@ -12,6 +12,7 @@
 
     <properties>
         <log4j2.version>2.2</log4j2.version>
+            	<jackson.version>2.7.8</jackson.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -54,17 +55,25 @@
 		
 		<!-- serialiseur JSON -->
 		
+				<!-- serialiseur JSON -->
+		
 	  	<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
-		    <version>2.6.7</version>
+		    <version>${jackson.version}</version>
 		</dependency>
     	
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-core</artifactId>
-		    <version>2.6.7</version>
+		    <version>${jackson.version}</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.datatype</groupId>
+		    <artifactId>jackson-datatype-hibernate4</artifactId>
+		    <version>${jackson.version}</version>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-hibernate4 -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.datatype</groupId>
