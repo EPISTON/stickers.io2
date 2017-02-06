@@ -7,15 +7,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import io.stickers.backend.metier.Carte.CarteOnly;
+import io.stickers.backend.utils.JsonPageable;
+
 
 @Entity
 public class StyleCarte {
+	
+	public static class StyleCarteOnly extends JsonPageable.PaginatedResult {}
 
 
+	@JsonView( { StyleCarteOnly.class } )
 	private int id;
+	@JsonView( { StyleCarteOnly.class } )
 	private String nom;
+	@JsonView( { StyleCarteOnly.class } )
 	private String police;
+	@JsonView( { StyleCarteOnly.class } )
 	private String couleur;
+	@JsonView( { StyleCarteOnly.class } )
 	private String template; 
 
 	private Set <Carte> cartes;
