@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>Liste des Cartes disponibles</h2>
+    <div *ngIf="cartes" class="row">
+        <div *ngFor="let carte of cartes | async" class="col-md-4">
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                        <div class="panel-heading"> 
+                             <h5>    {{carte.titre}} </h5>
+                        </div>
+                        <div class="panel-body">
+                            <p> {{carte.nom}} 
+                             {{carte.prenom}}</p>
+                            <p> {{carte.email}} </p>
+                            <p> {{carte.adresse}} </p>
+                            <p> {{carte.telephone}} </p>
+                        </div>
+                </div>
+             </div>
+        </div>
+    </div>
+</div>
