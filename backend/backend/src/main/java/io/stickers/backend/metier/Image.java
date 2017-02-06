@@ -28,6 +28,7 @@ import io.stickers.backend.utils.JsonPageable;
 public class Image {
 	
 	public static class ImageOnly extends JsonPageable.PaginatedResult {}
+	public static class ImageExtra extends ImageOnly {}
 
 	@JsonView( { ImageOnly.class } )
 	private int id;
@@ -39,7 +40,9 @@ public class Image {
 	private String contentType;
 	@JsonView( { ImageOnly.class } )
 	private long size;
+	@JsonView( { ImageExtra.class } )
 	private Set <Etiquette>etiquettes;
+	@JsonView( { ImageExtra.class } )
 	private Set <Carte> cartes;
 	
 	// =========================================
