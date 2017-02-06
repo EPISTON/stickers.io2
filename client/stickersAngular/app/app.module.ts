@@ -6,8 +6,10 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { CarteComponent }  from './carte.component';
+
 import { CarteListeComponent } from './components/carte-liste/carte-liste.component';
 import {CarteService} from './services/carte.service';
+
 
 @NgModule({
   imports:      [ 
@@ -26,7 +28,10 @@ import {CarteService} from './services/carte.service';
   					AppComponent, 
   					NavbarComponent,
 						CarteComponent,
+
 						CarteListeComponent,
+
+
 					HomeComponent
 				],
   providers: [ CarteService ],				

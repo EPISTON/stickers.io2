@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+		 					 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.stickers</groupId>
     <artifactId>backend</artifactId>
@@ -62,6 +65,13 @@
 		    <artifactId>jackson-core</artifactId>
 		    <version>2.6.7</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-hibernate4 -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.datatype</groupId>
+		    <artifactId>jackson-datatype-hibernate4</artifactId>
+		    <version>2.4.4</version>
+		</dependency>
+		
 		
 		<!-- autres dependances -->
 		<dependency>
@@ -135,6 +145,14 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.36</version>
 		</dependency>
+		
+		<!-- Storage manager -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
+			
     </dependencies>
 
   <build>
@@ -156,11 +174,11 @@
       				<container>
 	        			<containerId>tomcat8x</containerId>
 	        			<type>installed</type>
-	    				<home>C:\apache-tomcat-8.0.41</home>
+	    				<home>C:\apache-tomcat-8</home>
     				</container>
     				<configuration>
     					<type>existing</type>
-                    	<home>C:\apache-tomcat-8.0.41</home>
+                    	<home>C:\apache-tomcat-8</home>
     				</configuration>
                     <deployables>
                         <deployable>
