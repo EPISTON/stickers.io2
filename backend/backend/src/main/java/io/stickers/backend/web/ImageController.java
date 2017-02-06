@@ -156,7 +156,8 @@ public class ImageController {
 	public Image findById(@PathVariable("id") int id) {
 		log.info("image no " + id + " demandée");
 		Image img = getImageRepository().findOne(id);
-		log.info("image " + img.getId() + " name " + img.getFilename() );
+		if( img != null )
+			log.info("image " + img.getId() + " name " + img.getFilename() );
 		return img;
 	}
 
