@@ -11,6 +11,19 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.stickers.backend.utils.JsonPageable;
 
+/**
+ *    Carte (n)----------(1) StyleCarte
+ * 		(n)
+ * 		 |
+ * 		 |
+ * 		 |
+ * 		(1)
+ * 	  Image (n)----------(n) Etiquette
+ * 
+ * @author Bertrand COTE
+ * @author Berenice SREIFF
+ *
+ */
 @Entity
 public class Image {
 	
@@ -32,6 +45,7 @@ public class Image {
 	// =========================================
 	// ========== Getters and Setters ==========
 	// =========================================
+	
 	@Id
 	@GeneratedValue
 	public int getId() { return id; }
