@@ -8,13 +8,15 @@ import { HomeComponent } from './components/home/home.component';
 import { CarteComponent }  from './carte.component';
 import { EditImageComponent } from './editimage.component'
 // import { ListeCarteComponent } from './components/liste-carte.component';
+import { CarteListeComponent } from './components/carte-liste/carte-liste.component';
+import {CarteService} from './services/carte.service';
 
 @NgModule({
   imports:      [ 
   					BrowserModule,
   					RouterModule.forRoot([
   						{ path: 'home', component: HomeComponent},
-  						//{ path: 'cartes', component: ListeCarteComponent},
+  						{ path: 'cartes', component: CarteListeComponent},
 						{
 							path: '',
 							redirectTo: '/home',
@@ -26,9 +28,12 @@ import { EditImageComponent } from './editimage.component'
   					AppComponent, 
   					NavbarComponent,
 						CarteComponent,
-					HomeComponent,
-					EditImageComponent
+						HomeComponent,
+					EditImageComponent,
+					CarteListeComponent
 				],
+  providers: [ CarteService ],				
   bootstrap:    [ AppComponent ]  
+
 })
 export class AppModule { }
