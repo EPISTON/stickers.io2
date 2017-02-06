@@ -188,7 +188,7 @@ public class ImageController {
 //		return result;
 //	}
 
-	@RequestMapping(value="/images/tagSearch/{ids:[0-9,]+}", method=RequestMethod.GET, produces="application/json")
+	@RequestMapping(value="/images/etiquetteSearch/{ids:[0-9,]+}", method=RequestMethod.GET, produces="application/json")
 	@ResponseBody
 	@JsonView(ImageOnly.class)
 	public Page<Image> findByTagSearch(@PageableDefault(page=0, size=10) Pageable pageRequest,
@@ -197,7 +197,7 @@ public class ImageController {
 		return JsonPageable.fromPage(getImageRepository().findByEtiquetteList(ids, pageRequest, false));
 	}
 	
-	@RequestMapping(value="/images/tagSearchFull/{ids:[0-9,]+}", method=RequestMethod.GET, produces="application/json")
+	@RequestMapping(value="/images/etiquetteSearchFull/{ids:[0-9,]+}", method=RequestMethod.GET, produces="application/json")
 	@ResponseBody
 	@JsonView(ImageOnly.class)
 	public Page<Image> findByTagSearchFull(@PageableDefault(page=0, size=10) Pageable pageRequest,
@@ -208,7 +208,7 @@ public class ImageController {
 	
 	
 	
-	@RequestMapping(value="/images/save/{licenseId:[0-9]+}/{sourceId:[0-9]+}", method=RequestMethod.POST, produces="application/json")
+	@RequestMapping(value="/images/save/{cartesId:[0-9]+}/{etiquettesId:[0-9]+}", method=RequestMethod.POST, produces="application/json")
 	@ResponseBody
 	@JsonView(ImageOnly.class)
 	public Image save(
