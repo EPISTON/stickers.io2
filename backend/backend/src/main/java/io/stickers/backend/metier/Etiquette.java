@@ -9,7 +9,6 @@ import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import io.stickers.backend.metier.Image.ImageOnly;
 import io.stickers.backend.utils.JsonPageable;
 
 @Entity
@@ -17,9 +16,9 @@ public class Etiquette {
 	
 	public static class EtiquetteOnly extends JsonPageable.PaginatedResult {}
 
-	@JsonView( { ImageOnly.class } )
+	@JsonView( { EtiquetteOnly.class } )
 	private int id;
-	@JsonView( { ImageOnly.class } )
+	@JsonView( { EtiquetteOnly.class } )
 	private String label;
 	
 	private Set <Image>images;
