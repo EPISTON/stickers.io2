@@ -108,7 +108,7 @@ public class ImageController {
 	@RequestMapping(value="/images", method=RequestMethod.GET, produces="application/json")
 	@ResponseBody
 	@JsonView(ImageOnly.class)
-	public Page<Image> liste(@PageableDefault(page=0, size=10) Pageable pageRequest) {
+	public Page<Image> liste( @PageableDefault(page=0, size=10) Pageable pageRequest ) {
 		return JsonPageable.fromPage( this.getImageRepository().findAll(pageRequest));
 	}
 	
@@ -156,7 +156,8 @@ public class ImageController {
 	public Image findById(@PathVariable("id") int id) {
 		log.info("image no " + id + " demandée");
 		Image img = getImageRepository().findOne(id);
-		log.info("image " + img.getId() + " name " + img.getFilename() );
+		if( img != null )
+			log.info("image " + img.getId() + " name " + img.getFilename() );
 		return img;
 	}
 

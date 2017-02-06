@@ -9,6 +9,6 @@ import io.stickers.backend.metier.Etiquette;
  * @author Eric PISTON
  *
  */
-public interface EtiquetteRepository extends PagingAndSortingRepository<Etiquette, Integer> {
+public interface EtiquetteRepository extends PagingAndSortingRepository<Etiquette, Integer>, EtiquetteRepositoryCustom {
 
 }
