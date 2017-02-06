@@ -1,125 +1,126 @@
 package io.stickers.backend.utils;
 
-
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * Dans la configuration spring, je définirais le répertoire
- * de base pour le stockage par ex : c:\stockage....
- * 
- * Quand un repository (ou autre) a besoin de stocker des fichiers
- * il demande a notre classe de le faire, en le fichier et surtout son contenu
- * il indique aussi qui a besoin de ce stockage (ex: daoAvatar)
- * si le rep n'existe pas, le FileStorageManager creer un repertoire pour chaque
- * utilisateur/dao du service
- * tous les noms de fichiers et de répertoires sont générés avec MD5 (hashage)
- * 
- * FileStorageManager:
- * ----------------------------------------------------------------------------------------------------
- * ---------- Configuration ---------------------------------------------------------------------------
- * ----------------------------------------------------------------------------------------------------
- * 
- * 
- * Ajouter dans "applicationContext.xml":
- * 
- * 		<bean id="fileStorageManager"
- * 			  class="io.stickers.backend.utils.FileStorageManager">
- * 			<property name="storageRoot"  value="C:\stockageStickers"/>
- * 		</bean>
- * 
- * 
- * Ajouter dans "pom.xml"
- * 
- * 		<dependency>
- * 			<groupId>commons-codec</groupId>
- * 			<artifactId>commons-codec</artifactId>
- * 			<version>1.10</version>
- * 		</dependency>
- * 
- * 
- * Créer le répertoire "C:\stockageStickers" en local s'il n'existe pas
- * 
- * ----------------------------------------------------------------------------------------------------
- * 
- * @author Bertrand COTE
- * @author Vincent COURTALON
- */
+
+
 public class FileStorageManager {
-	private static Logger log = LogManager.getLogger(FileStorageManager.class); 
 	
-	// reprtoire racine de notre stockage
+	private final static Logger log = LogManager.getLogger(FileStorageManager.class);
+	
 	private File storageRoot;
 	public File getStorageRoot() {return storageRoot;}
+
 	public void setStorageRoot(File storageRoot) {this.storageRoot = storageRoot;}
 	
-	public FileStorageManager() {}
-	
-	// cette fonction servira a stocker le fichier a la demande d'un DAO
-	public boolean saveFile(String entityName, int id, File f) {
-		if (storageRoot == null
-			 || !storageRoot.exists()
-			 || !storageRoot.isDirectory()) {
-			// probleme, pas de repertoire de base correct
-			log.error("repertoire de base de stockage non disponnible");
-			return false;
-		}
-		// generation du nom du répertoire pour notre entitée
-		String md5name = DigestUtils.md5Hex(entityName);
-		File entityRep = new File(storageRoot.getAbsolutePath() + File.separatorChar + md5name);
-		
-		// si le repertoire pour mon dao/entite n'eciste pas, je le cree
-		if (!entityRep.exists())
-			entityRep.mkdirs();
-		
-		if (!entityRep.isDirectory()) {
-			log.error("impossible de creer la repertoire de stockage pour " + entityName);
-			return false;
-		}
-		try {
-			// copier, depuis le fichier temporaire uplaodé
-			// vers un fichier nommé avec MD5(type + id)
-			// dans le reprtoire personnel de ce DAO ->  MD5(entityName)
-			Files.copy(f.toPath(), Paths.get(entityRep.getAbsolutePath(),
-					"file_" + DigestUtils.md5Hex(entityName + id)),
-					StandardCopyOption.REPLACE_EXISTING);
-			return true;
-		} catch (IOException e) { log.error(e);}
-		return false;
+	public FileStorageManager(){
 	}
 
+	public boolean saveFile(String entityName, int id, File f) {
+		try {
+			return saveFile(entityName, id, new FileInputStream(f));
+		} catch (FileNotFoundException e) {
+			log.error(e);
+		}
+		return false;
+	}
+	
+	public boolean saveFile(String entityName, int id, InputStream data) {
+		if (storageRoot == null 
+			|| !storageRoot.exists()
+			|| !storageRoot.isDirectory()) {
+			log.error("root directory for file storage unavalaible: " + storageRoot.getAbsolutePath());
+			return false;
+		}
+		// je génére le hash du depot
+		String md5name = DigestUtils.md5Hex(entityName);
+		// si le rep n'existe pas, je le creer
+		File entityRep = new File(storageRoot.getAbsolutePath() + File.separatorChar + md5name); 
+		if (!entityRep.exists()){
+			entityRep.mkdirs();
+		}
+		if (!entityRep.isDirectory()) {
+			log.error("could not create or access directory" + md5name +" for entity " + entityName + "for file storage");
+			return false;
+		}
+		// je le génére le hash spécifique pour notre image (a partir de son id)
+		String hashedFileName = DigestUtils.md5Hex(entityName + "_" + id);
+		// on sous-decoupe en 256 sous-rep potentiels pour eviter un répertoire avec une enorme liste de fichier dedans
+		File entitySubDir = new File(entityRep, hashedFileName.substring(0, 2));
+		if (!entitySubDir.exists()){
+			entitySubDir.mkdirs();
+		}
+		if (!entitySubDir.isDirectory()) {
+			log.error("could not create or access sub directory for entity " + entityName + " with id " + id  +"for file storage");
+			return false;
+		}
+		
+		try {
+			Files.copy(data, Paths.get(entitySubDir.getAbsolutePath(), hashedFileName.substring(2)), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+			return true;
+		} catch (IOException e) {
+			log.error(e);
+		}
+		return false;
+	}
 	public Optional<File> getFile(String entityName, int id) {
-		if (storageRoot == null
-				 || !storageRoot.exists()
-				 || !storageRoot.isDirectory()) {
-				// probleme, pas de repertoire de base correct
-				log.error("repertoire de base de stockage non disponnible");
+		if (storageRoot == null 
+				|| !storageRoot.exists()
+				|| !storageRoot.isDirectory()) {
+				log.error("root directory for file storage unavalaible");
 				return Optional.empty();
 		}
 		String md5name = DigestUtils.md5Hex(entityName);
-		File entityRep = new File(storageRoot.getAbsolutePath() + File.separatorChar + md5name);
-		
-		// si le repertoire n'existe pas, pas de fichier a renvoyer
-		if (!entityRep.exists() || !entityRep.isDirectory())
+		File entityRep = new File(storageRoot.getAbsolutePath() + File.separatorChar + md5name); 
+		if (!entityRep.exists() || !entityRep.isDirectory()){
 			return Optional.empty();
-		
-		File f = new File(entityRep.getAbsolutePath(),
-				"file_" + DigestUtils.md5Hex(entityName + id));
-		// si le fichier existe, le renvoyer
+		}
+		String hashedFileName = DigestUtils.md5Hex(entityName + "_" + id);
+		File entitySubDir = new File(entityRep, hashedFileName.substring(0, 2));
+		if (!entitySubDir.exists() || !entitySubDir.isDirectory()){
+			return Optional.empty();
+		}
+		File f = new File(entitySubDir.getAbsolutePath() +  File.separatorChar +  hashedFileName.substring(2));
 		if (f.exists() && f.isFile())
 			return Optional.of(f);
 		else
 			return Optional.empty();
-		
-		
 	}
 	
+	public boolean removeFile(String entityName, int id) {
+		if (storageRoot == null 
+				|| !storageRoot.exists()
+				|| !storageRoot.isDirectory()) {
+				log.error("root directory for file storage unavalaible");
+				return false;
+		}
+		String md5name = DigestUtils.md5Hex(entityName);
+		File entityRep = new File(storageRoot.getAbsolutePath() + File.separatorChar + md5name); 
+		if (!entityRep.exists() || !entityRep.isDirectory()){
+			return false;
+		}
+		String hashedFileName = DigestUtils.md5Hex(entityName + "_" + id);
+		File entitySubDir = new File(entityRep, hashedFileName.substring(0, 2));
+		if (!entitySubDir.exists() || !entitySubDir.isDirectory()){
+			return false;
+		}
+		File f = new File(entitySubDir.getAbsolutePath() +  File.separatorChar +  hashedFileName.substring(2));
+		if (f.exists() && f.isFile())
+			return f.delete();
+		else
+			return false;
+	}
+	
+
 }

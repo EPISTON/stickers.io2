@@ -5,19 +5,34 @@ import javax.persistence.Id;
 
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import io.stickers.backend.metier.Image.ImageOnly;
+import io.stickers.backend.utils.JsonPageable;
+
 @Entity
 public class Carte {
+	
+	public static class CarteOnly extends JsonPageable.PaginatedResult {}
 
 
+	@JsonView( { CarteOnly.class } )
 	private int id;
+	@JsonView( { ImageOnly.class } )
 	private String nom;
+	@JsonView( { CarteOnly.class } )
 	private String prenom;
+	@JsonView( { CarteOnly.class } )
 	private String email;
+	@JsonView( { CarteOnly.class } )
 	private String titre;
+	@JsonView( { CarteOnly.class } )
 	private String adresse;
+	@JsonView( { CarteOnly.class } )
 	private String telephone;
+	
 	private StyleCarte stylecartes;
-	private  Image image;
+	private Image image;
 
 
 
