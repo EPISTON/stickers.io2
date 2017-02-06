@@ -1,0 +1,47 @@
+<form *ngIf="editedCarte">
+    <div class="form-group">
+        <label for="nom">Votre nom</label>
+        <input type="text"
+               class="form-control"
+               id="nom" name="nom"
+                [(ngModel)]="editedCarte.nom" />
+    </div>
+    <div class="form-group">
+        <label for="nom">Votre prenom</label>
+        <input type="text"
+               class="form-control"
+               id="prenom" name="prenom"
+                [(ngModel)]="editedCarte.prenom" />
+    </div>
+    <div class="form-group">
+        <label for="nom">Votre email</label>
+        <input type="email"
+               class="form-control"
+               id="email" name="email"
+                [(ngModel)]="editedCarte.email" />
+    </div>
+    <div class="form-group">
+        <label for="nom">Votre Titre</label>
+        <input type="text"
+               class="form-control"
+               id="titre" name="titre"
+                [(ngModel)]="editedCarte.titre" />
+    </div>
+
+    <div class="form-group">
+        <label for="nom">Votre adresse</label>
+        <input type="text"
+               class="form-control"
+               id="adresse" name="adresse"
+                [(ngModel)]="editedCarte.adresse" />
+    </div>
+    <div class="form-group">
+        <label for="nom">Votre Telephone</label>
+        <input type="text"
+               class="form-control"
+               id="telephone" name="telephone "
+                [(ngModel)]="editedCarte.telephone" />
+    </div>
+   
+    <a routerLink="/cartes" class="btn btn-lg btn-block btn-primary">back</a>
+</form>

@@ -9,7 +9,7 @@ const SAMPLE_CARTE : Carte[] = [
     new Carte(3, "DIALLO", " ABDOU ", "carte@sticker.com", "BUSINESS IT", "3 rue des jardins", "01 23 36 34 47"),
     new Carte(4, "DIALLO", "DIARAYE", "carte@sticker.com", "BUSINESS & TECHNOLOGY", "3 Rue des jardins", "01 23 36 34 47"),
     new Carte(5, "BERTRAND", "COTE", "carte@sticker.com", "VOTRE INGENIEUR IT", "3 Rue des jardins", "01 23 36 34 47"),
-    new Carte(6, "DIALLO", " DIARI ", "carte@sticker.com", "Busness", "3 rue des jardins", "01 23 36 34 47"),
+    new Carte(6, "DIALLO", " DIARI ", "carte@sticker.com", "BUSINESS", "3 rue des jardins", "01 23 36 34 47"),
 ];
 
 @Injectable()
@@ -28,6 +28,10 @@ export class CarteService
 
     getCartes(): Observable<Carte[]>{
         return this._carteObservableBuilder.asObservable();
+    }
+
+    findByid(id: number) : Carte {
+        return this._cartes.find(carte => carte.id == id);
     }
 
 }
