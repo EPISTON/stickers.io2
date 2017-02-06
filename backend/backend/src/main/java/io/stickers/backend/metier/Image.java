@@ -71,11 +71,24 @@ public class Image {
 	public Set<Etiquette> getEtiquettes() { return etiquettes; }
 	public void setEtiquettes(Set<Etiquette> etiquettes) { this.etiquettes = etiquettes; }
 	
+	// ===========================
+	// ========== Utils ==========
+	// ===========================
+	
+	public boolean addCarte( Carte carte ) {
+		return this.getCartes().add( carte );
+	}
+
+	
+	public boolean addEtiquette( Etiquette etiquette ) {
+		return this.getEtiquettes().add( etiquette );
+	}
+	
 	// ==================================
 	// ========== Constructors ==========
 	// ==================================
 
-	public Image(int id, String nom, String filename, String contentType, long size) {
+	public Image( int id, String nom, String filename, String contentType, long size ) {
 		this.id = id;
 		this.nom = nom;
 		this.filename = filename;
