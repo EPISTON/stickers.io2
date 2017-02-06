@@ -1,5 +1,6 @@
 package io.stickers.backend.metier;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -54,7 +55,11 @@ public class Image {
 	public void setCartes(Set<Carte> cartes) { this.cartes = cartes; }
 
 	@ManyToMany
-	public Set<Etiquette> getEtiquettes() { return etiquettes; }
+	public Set<Etiquette> getEtiquettes()
+	{
+		if (etiquettes == null) etiquettes = new HashSet<>();
+		return etiquettes;
+	}
 	public void setEtiquettes(Set<Etiquette> etiquettes) { this.etiquettes = etiquettes; }
 	
 	// ==================================
@@ -69,6 +74,14 @@ public class Image {
 		this.size = size;
 	}
 	public Image(){this(0,"","","",0);}
+	
+	public void addEtiquette(Etiquette t) {
+		this.getEtiquettes().add(t);
+	}
+	
+	public void removeEtiquette(Etiquette t){
+		this.getEtiquettes().removeIf(e -> e.getId() == t.getId());
+	}
 
 }
 

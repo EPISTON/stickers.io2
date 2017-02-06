@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { CarteComponent }  from './carte.component';
+import { EditImageComponent } from './editimage.component'
 // import { ListeCarteComponent } from './components/liste-carte.component';
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CarteComponent }  from './carte.component';
   					AppComponent, 
   					NavbarComponent,
 						CarteComponent,
-					HomeComponent
+					HomeComponent,
+					EditImageComponent
 				],
   bootstrap:    [ AppComponent ]  
 })
