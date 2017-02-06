@@ -9,7 +9,6 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import io.stickers.backend.metier.Carte.CarteOnly;
 import io.stickers.backend.utils.JsonPageable;
 
 

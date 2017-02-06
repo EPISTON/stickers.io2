@@ -11,6 +11,19 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.stickers.backend.utils.JsonPageable;
 
+/**
+ *    Carte (n)----------(1) StyleCarte
+ * 		(n)
+ * 		 |
+ * 		 |
+ * 		 |
+ * 		(1)
+ * 	  Image (n)----------(n) Etiquette
+ * 
+ * @author Bertrand COTE
+ * @author Berenice SREIFF
+ *
+ */
 @Entity
 public class Image {
 	
@@ -32,6 +45,7 @@ public class Image {
 	// =========================================
 	// ========== Getters and Setters ==========
 	// =========================================
+	
 	@Id
 	@GeneratedValue
 	public int getId() { return id; }
@@ -57,11 +71,24 @@ public class Image {
 	public Set<Etiquette> getEtiquettes() { return etiquettes; }
 	public void setEtiquettes(Set<Etiquette> etiquettes) { this.etiquettes = etiquettes; }
 	
+	// ===========================
+	// ========== Utils ==========
+	// ===========================
+	
+	public boolean addCarte( Carte carte ) {
+		return this.getCartes().add( carte );
+	}
+
+	
+	public boolean addEtiquette( Etiquette etiquette ) {
+		return this.getEtiquettes().add( etiquette );
+	}
+	
 	// ==================================
 	// ========== Constructors ==========
 	// ==================================
 
-	public Image(int id, String nom, String filename, String contentType, long size) {
+	public Image( int id, String nom, String filename, String contentType, long size ) {
 		this.id = id;
 		this.nom = nom;
 		this.filename = filename;
